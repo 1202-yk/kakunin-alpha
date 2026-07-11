@@ -3,8 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>確認君+α | 配信会場 回線チェック</title>
-<meta name="description" content="配信会場の下見用:回線速度・プロバイダー・IPアドレス・端末環境をワンページで確認">
+<title>確認君+α|配信会場の回線チェック - 回線速度テスト・IPアドレス・プロバイダー確認</title>
+<meta name="description" content="配信会場の下見に便利な無料回線チェックツール。回線速度(下り・上り・Ping・ジッター)の計測、IPアドレス・プロバイダーの確認、YouTube Live・Twitch・Zoomでの配信可否判定までワンページで完結。計測結果は施設名入りの画像で保存できます。">
+<meta name="keywords" content="回線速度テスト,スピードテスト,回線チェック,IPアドレス確認,プロバイダー確認,配信,ライブ配信,下見,YouTube Live,Twitch,Zoom,ウェビナー">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#7c5cff">
+<link rel="canonical" href="https://1202-yk.github.io/kakunin-alpha/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📶</text></svg>">
+<!-- OGP -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="確認君+α">
+<meta property="og:title" content="確認君+α|配信会場の回線チェック">
+<meta property="og:description" content="回線速度テスト・IPアドレス・プロバイダー確認・配信可否判定をワンページで。配信会場の下見のお供に。">
+<meta property="og:url" content="https://1202-yk.github.io/kakunin-alpha/">
+<meta property="og:image" content="https://1202-yk.github.io/kakunin-alpha/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="確認君+α|配信会場の回線チェック">
+<meta name="twitter:description" content="回線速度テスト・IPアドレス・プロバイダー確認・配信可否判定をワンページで。">
+<meta name="twitter:image" content="https://1202-yk.github.io/kakunin-alpha/ogp.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "確認君+α",
+  "alternateName": "配信会場 回線チェックツール",
+  "url": "https://1202-yk.github.io/kakunin-alpha/",
+  "description": "配信会場の下見用の無料回線チェックツール。回線速度(下り・上り・Ping)の計測、IPアドレス・プロバイダーの確認、YouTube Live・Twitch・Zoomでの配信可否判定ができます。",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "inLanguage": "ja",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
@@ -77,6 +111,7 @@
   }
   header.site .sub { color: var(--ink-2); font-size: 13px; font-weight: 700; }
   .stamp { margin-left: auto; color: var(--ink-muted); font-size: 12px; }
+  .lede { font-size: 13px; color: var(--ink-2); margin: -10px 0 22px; max-width: 660px; }
 
   .card {
     background: var(--surface);
@@ -125,6 +160,19 @@
     border-radius: 999px; transition: width .25s linear;
   }
   .phase { font-size: 12px; color: var(--ink-2); margin-top: 8px; min-height: 18px; }
+
+  .venue-row { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+  .venue-row label { font-size: 12px; font-weight: 700; color: var(--ink-2); }
+  .venue-row input {
+    font-family: inherit; font-size: 15px;
+    padding: 11px 16px; border-radius: 14px;
+    border: 2px solid var(--grid);
+    background: var(--surface); color: var(--ink-1);
+    outline: none; transition: border-color .15s;
+    max-width: 420px;
+  }
+  .venue-row input:focus { border-color: var(--accent); }
+  .venue-row input::placeholder { color: var(--ink-muted); }
 
   .btn-row { display: flex; gap: 10px; align-items: center; margin-top: 16px; flex-wrap: wrap; }
   button.primary {
@@ -206,6 +254,8 @@
     <span class="stamp" id="stamp"></span>
   </header>
 
+  <p class="lede">「この会場の回線、配信に耐えられる?」をその場で確認できる無料ツールです。回線速度(下り・上り・Ping)の計測から、IPアドレス・プロバイダーの確認、YouTube Live / Twitch / Zoom の配信可否判定まで、このページひとつで完結します。</p>
+
   <!-- 1. speed test -->
   <section class="card" id="speedCard">
     <h2><span class="icon i-speed">⚡</span>回線速度テスト</h2>
@@ -229,6 +279,10 @@
     </div>
     <div class="meter"><div id="meterFill"></div></div>
     <div class="phase" id="phase">「計測開始」を押すと約30秒で計測します(6ストリーム並列計測。高速回線ではデータ通信量が数GBになることがあります)</div>
+    <div class="venue-row">
+      <label for="venue">📍 施設名(保存画像・コピー結果に記載されます)</label>
+      <input id="venue" type="text" placeholder="例:○○市民ホール 大ホール" maxlength="50" autocomplete="off">
+    </div>
     <div class="btn-row">
       <button class="primary" id="startBtn">計測開始</button>
       <button class="ghost" id="copyBtn" disabled>結果をコピー</button>
@@ -300,7 +354,7 @@
   </section>
 
   <footer>
-    確認君+α — 速度計測には Cloudflare のスピードテスト用サーバー(speed.cloudflare.com)を利用し、6ストリーム並列で計測しています。ブラウザ計測の特性上、マルチギガ回線では実際より低めに出ることがあります。計測結果はこのブラウザ内でのみ処理され、どこにも保存されません。
+    確認君+α — 速度計測には Cloudflare のスピードテスト用サーバー(speed.cloudflare.com)を利用し、6ストリーム並列で計測しています(接続できない場合は fast.com の計測サーバーに自動で切り替わります)。ブラウザ計測の特性上、マルチギガ回線では実際より低めに出ることがあります。計測結果はこのブラウザ内でのみ処理され、どこにも保存されません。
     <div class="disclaimer">※「確認君+α」は、「<a href="https://env.b4iine.net/" target="_blank" rel="noopener">確認君+(Plus)</a>」および「<a href="http://www.ugtop.com/" target="_blank" rel="noopener">確認くん</a>」とは一切関係ありません。</div>
   </footer>
 </div>
@@ -512,7 +566,8 @@ const STREAMS = 6;   // Speedtest.net と同様のマルチストリーム計測
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-async function measureDownload(budgetMs = 12000) {
+// 汎用マルチストリーム下り計測(URL生成関数を差し替えて計測サーバーを変えられる)
+async function measureDownloadFrom(urlFactory, budgetMs = 12000) {
   const t0 = performance.now();
   let total = 0, stop = false, lastErr = null;
   const samples = [{ t: 0, b: 0 }];
@@ -527,10 +582,11 @@ async function measureDownload(budgetMs = 12000) {
 
   async function worker(idx) {
     await sleep(idx * 200);              // 同時バーストを避けて時間差で開始
-    let errors = 0;
-    while (!stop && errors < 3) {
+    let fails = 0;
+    let small = true;                    // まず小さめで確実に開通し、成功したら大きく
+    while (!stop && fails < 5) {
       try {
-        const r = await fetch(`${CF}/__down?bytes=${50e6}&r=${Math.random()}`, { cache: "no-store", signal: ctl.signal });
+        const r = await fetch(urlFactory(small), { cache: "no-store", signal: ctl.signal });
         if (!r.ok) throw new Error("HTTP " + r.status);
         const reader = r.body.getReader();
         for (;;) {
@@ -539,13 +595,13 @@ async function measureDownload(budgetMs = 12000) {
           total += value.length;
           if (stop) { try { reader.cancel(); } catch (e) {} break; }
         }
-        errors = 0;
+        fails = 0; small = false;
       } catch (e) {
         if (stop) break;
         lastErr = e.message || String(e);
         console.warn("[確認君+α] 下り計測エラー:", lastErr);
-        errors++;
-        await sleep(300);
+        fails++; small = true;
+        await sleep(Math.min(300 * 2 ** fails, 2000));   // 指数バックオフで再試行
       }
     }
   }
@@ -553,8 +609,8 @@ async function measureDownload(budgetMs = 12000) {
   const tEnd = t0 + budgetMs;
   while (performance.now() < tEnd) {
     await sleep(250);
-    // 3.5秒たっても1バイトも受信できなければ早期中断
-    if (performance.now() - t0 > 3500 && total === 0) break;
+    // 8秒たっても1バイトも受信できなければ早期中断
+    if (performance.now() - t0 > 8000 && total === 0) break;
   }
   stop = true;
   samples.push({ t: performance.now() - t0, b: total });
@@ -565,6 +621,25 @@ async function measureDownload(budgetMs = 12000) {
   const sp = windowedSpeed(samples);
   if (!total || !sp) throw new Error(lastErr || "データを受信できませんでした");
   return sp;
+}
+
+// 計測サーバー①: Cloudflare
+function measureDownload(budgetMs = 12000) {
+  return measureDownloadFrom(
+    small => `${CF}/__down?bytes=${small ? 10e6 : 50e6}&r=${Math.random()}`,
+    budgetMs
+  );
+}
+
+// 計測サーバー②: fast.com(Netflix)— Cloudflareへの経路が不調な回線向け
+async function measureDownloadFast(budgetMs = 10000) {
+  const api = await fetchJSON(
+    "https://api.fast.com/netflix/speedtest/v2?https=true&token=YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm&urlCount=5"
+  );
+  const urls = (api.targets || []).map(t => t.url);
+  if (!urls.length) throw new Error("fast.com の計測URLを取得できませんでした");
+  let i = 0;
+  return measureDownloadFrom(() => urls[i++ % urls.length], budgetMs);
 }
 
 // 互換モード: 1ストリーム逐次(並列計測がブロックされる環境向け)
@@ -624,17 +699,18 @@ async function measureUpload(budgetMs = 12000) {
     return new Promise(resolve => {
       let errors = 0;
       const next = () => {
-        if (stop || errors >= 3) return resolve();
+        if (stop || errors >= 5) return resolve();
         const xhr = new XMLHttpRequest();
         xhrs.push(xhr);
         active.set(xhr, 0);
         xhr.open("POST", `${CF}/__up?r=${Math.random()}`);
         xhr.upload.onprogress = ev => { if (!stop) active.set(xhr, ev.loaded); };
+        const backoff = () => Math.min(300 * 2 ** errors, 2000);
         xhr.onload = () => {
-          if (xhr.status >= 400) { lastErr = "HTTP " + xhr.status; active.delete(xhr); errors++; if (stop) return resolve(); setTimeout(next, 300); return; }
+          if (xhr.status >= 400) { lastErr = "HTTP " + xhr.status; active.delete(xhr); errors++; if (stop) return resolve(); setTimeout(next, backoff()); return; }
           active.delete(xhr); done += blob.size; errors = 0; next();
         };
-        xhr.onerror = () => { lastErr = lastErr || "ネットワークエラー"; active.delete(xhr); errors++; if (stop) return resolve(); setTimeout(next, 300); };
+        xhr.onerror = () => { lastErr = lastErr || "ネットワークエラー"; active.delete(xhr); errors++; if (stop) return resolve(); setTimeout(next, backoff()); };
         xhr.ontimeout = xhr.onerror;
         xhr.onabort = () => resolve();
         xhr.timeout = budgetMs + 15000;
@@ -647,8 +723,8 @@ async function measureUpload(budgetMs = 12000) {
   const tEnd = t0 + budgetMs;
   while (performance.now() < tEnd) {
     await sleep(250);
-    // 3.5秒たっても1バイトも送信できなければ早期中断
-    if (performance.now() - t0 > 3500 && totalNow() === 0) break;
+    // 8秒たっても1バイトも送信できなければ早期中断
+    if (performance.now() - t0 > 8000 && totalNow() === 0) break;
   }
   stop = true;
   samples.push({ t: performance.now() - t0, b: totalNow() });   // 打ち切り前の実績を確定
@@ -756,17 +832,27 @@ startBtn.addEventListener("click", async () => {
     console.warn("[確認君+α] Ping計測失敗:", e);
   }
 
-  // ② 下り(失敗したら互換モードで再試行)
-  try {
-    phase.textContent = "② 下り(ダウンロード)速度を計測中…(6ストリーム並列)";
-    progressBase = 15; progressSpan = 45;
-    try {
-      S.down = await measureDownload();
-    } catch (e) {
-      console.warn("[確認君+α] 並列下り計測失敗:", e.message, "→ 互換モードで再試行");
-      phase.textContent = "② 下り速度を互換モード(1ストリーム)で再計測中…";
-      S.down = await measureDownloadSimple();
+  // 失敗したら次の手段へ順に切り替える
+  async function runLadder(steps) {
+    let lastE = null;
+    for (const s of steps) {
+      if (s.wait) await sleep(s.wait);
+      phase.textContent = s.label;
+      try { return await s.fn(); }
+      catch (e) { lastE = e; console.warn("[確認君+α] 失敗:", s.label, "→", e.message || e); }
     }
+    throw lastE;
+  }
+
+  // ② 下り: Cloudflare並列 → リトライ → fast.com並列 → 互換モード
+  try {
+    progressBase = 15; progressSpan = 45;
+    S.down = await runLadder([
+      { label: "② 下り(ダウンロード)速度を計測中…(6ストリーム並列)", fn: () => measureDownload() },
+      { label: "② 下り速度を再計測中…(リトライ)", wait: 1200, fn: () => measureDownload(8000) },
+      { label: "② 下り速度を別の計測サーバー(fast.com)で計測中…", wait: 500, fn: () => measureDownloadFast() },
+      { label: "② 下り速度を互換モード(1ストリーム)で再計測中…", wait: 500, fn: () => measureDownloadSimple() },
+    ]);
     $("vDown").textContent = fmtMbps(S.down);
     $("tileDown").classList.remove("pending");
   } catch (e) {
@@ -774,17 +860,14 @@ startBtn.addEventListener("click", async () => {
     console.warn("[確認君+α] 下り計測失敗:", e);
   }
 
-  // ③ 上り(失敗したら互換モードで再試行)
+  // ③ 上り: Cloudflare並列 → リトライ → 互換モード
   try {
-    phase.textContent = "③ 上り(アップロード)速度を計測中…(6ストリーム並列)";
     progressBase = 60; progressSpan = 40;
-    try {
-      S.up = await measureUpload();
-    } catch (e) {
-      console.warn("[確認君+α] 並列上り計測失敗:", e.message, "→ 互換モードで再試行");
-      phase.textContent = "③ 上り速度を互換モード(1ストリーム)で再計測中…";
-      S.up = await measureUploadSimple();
-    }
+    S.up = await runLadder([
+      { label: "③ 上り(アップロード)速度を計測中…(6ストリーム並列)", fn: () => measureUpload() },
+      { label: "③ 上り速度を再計測中…(リトライ)", wait: 1200, fn: () => measureUpload(8000) },
+      { label: "③ 上り速度を互換モード(1ストリーム)で再計測中…", wait: 800, fn: () => measureUploadSimple() },
+    ]);
     $("vUp").textContent = fmtMbps(S.up);
     $("tileUp").classList.remove("pending");
   } catch (e) {
@@ -819,26 +902,31 @@ startBtn.addEventListener("click", async () => {
 
 /* ================= save as image ================= */
 function drawResultImage() {
-  // 固定ライトテーマで描画(共有先での見やすさ優先)
-  const C = {
-    bg: "#fcfcfb", ink: "#0b0b0b", sub: "#52514e", muted: "#898781",
-    grid: "#e1e0d9", accent: "#2a78d6",
-    ok:   { bg: "#e4f4e4", tx: "#006300" },
-    warn: { bg: "#fdf0d2", tx: "#7a5200" },
-    ng:   { bg: "#f9e3e3", tx: "#a52222" },
-    na:   { bg: "#f0efec", tx: "#898781" },
+  // サイトと同じポップテーマ(ライト配色)で描画
+  const P = {
+    ink: "#26304a", sub: "#5a6478", muted: "#8f97a8", grid: "#eceef5", card: "#ffffff",
+    g1: "#2a78d6", g2: "#7c5cff", g3: "#ff5fa2",
+    bg1: "#e8f2ff", bg2: "#fdeef7", bg3: "#fff7df",
+    tiles: [["#e7f1ff", "#1d6fd1"], ["#e4f8ee", "#0f9d63"], ["#efeaff", "#6a4fd8"], ["#ffeaf3", "#d64d8a"]],
+    ok:   { bg: "#dff3df", tx: "#0a7d0a" },
+    warn: { bg: "#fdf0d2", tx: "#8a5c00" },
+    ng:   { bg: "#f9e3e3", tx: "#b52d2d" },
+    na:   { bg: "#f0f1f5", tx: "#8f97a8" },
   };
-  const W = 720, pad = 36, scale = 2;
+  const W = 760, M = 18, pad = 34, scale = 2;
   const F = w => `${w} "M PLUS Rounded 1c", system-ui, -apple-system, "Segoe UI", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Noto Sans JP", sans-serif`;
+  const venue = $("venue").value.trim();
+  const rowsN = document.querySelectorAll("#verdictTable tr").length;
 
-  // 高さを先に決める(レイアウトは決定的)
-  const verdictRows = document.querySelectorAll("#verdictTable tr").length;
-  const H = 118                      // ヘッダー
-          + 96 + 34                  // 速度タイル
-          + 30 + verdictRows * 40 + 26   // 配信可否
-          + 30 + 4 * 32 + 26         // 回線情報
-          + 30 + 2 * 32              // 端末
-          + 56;                      // フッター
+  // レイアウトは決定的なので高さを先に計算
+  const contentH =
+      46 + (venue ? 42 : 0) + 18      // ヘッダー + 施設名 + 区切り
+    + 92 + 30                          // 速度タイル
+    + 34 + rowsN * 40 + 18            // 配信可否
+    + 34 + 4 * 32 + 18                // 回線情報
+    + 34 + 2 * 32                     // 端末
+    + 36;                             // フッター
+  const H = M * 2 + pad * 2 + contentH;
 
   const cv = document.createElement("canvas");
   cv.width = W * scale; cv.height = H * scale;
@@ -860,25 +948,47 @@ function drawResultImage() {
     while (text.length && ctx.measureText(text + "…").width > max) text = text.slice(0, -1);
     return text + "…";
   };
-  const line = y => { ctx.strokeStyle = C.grid; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(W - pad, y); ctx.stroke(); };
 
-  // 背景
-  ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+  // 背景グラデーション
+  const bg = ctx.createLinearGradient(0, 0, W * 0.4, H);
+  bg.addColorStop(0, P.bg1); bg.addColorStop(0.55, P.bg2); bg.addColorStop(1, P.bg3);
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
-  // ヘッダー
-  let y = pad + 14;
-  ctx.fillStyle = C.ink; ctx.font = F("700 24px"); ctx.textBaseline = "alphabetic";
-  ctx.fillText("確認君+α", pad, y + 8);
-  ctx.fillStyle = C.sub; ctx.font = F("400 13px");
-  ctx.fillText("配信会場 回線チェック結果", pad + 128, y + 8);
+  // 白カード
+  ctx.save();
+  ctx.shadowColor = "rgba(74,58,167,0.16)"; ctx.shadowBlur = 22; ctx.shadowOffsetY = 6;
+  ctx.fillStyle = P.card;
+  rr(M, M, W - M * 2, H - M * 2, 24); ctx.fill();
+  ctx.restore();
+
+  const L = M + pad, R = W - M - pad, CW = R - L;
+  let y = M + pad;
+  const line = yy => { ctx.strokeStyle = P.grid; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(L, yy); ctx.lineTo(R, yy); ctx.stroke(); };
+
+  // ヘッダー(グラデーションタイトル)
+  ctx.font = F("800 26px");
+  const tg = ctx.createLinearGradient(L, 0, L + 170, 0);
+  tg.addColorStop(0, P.g1); tg.addColorStop(0.55, P.g2); tg.addColorStop(1, P.g3);
+  ctx.fillStyle = tg;
+  ctx.fillText("確認君+α", L, y + 24);
+  ctx.fillStyle = P.sub; ctx.font = F("700 13px");
+  ctx.fillText("配信会場 回線チェック結果", L + 152, y + 24);
   const ts = S.measuredAt || stamp();
-  ctx.fillStyle = C.muted; ctx.textAlign = "right";
-  ctx.fillText(ts + " 計測", W - pad, y + 8);
+  ctx.fillStyle = P.muted; ctx.font = F("400 12px"); ctx.textAlign = "right";
+  ctx.fillText(ts + " 計測", R, y + 24);
   ctx.textAlign = "left";
-  y += 34; line(y); y += 30;
+  y += 46;
+
+  // 施設名
+  if (venue) {
+    ctx.fillStyle = P.ink; ctx.font = F("800 20px");
+    ctx.fillText(ell("📍 " + venue, CW), L, y + 22);
+    y += 42;
+  }
+  line(y); y += 18;
 
   // 速度タイル
-  const gap = 14, tw = (W - pad * 2 - gap * 3) / 4;
+  const gap = 12, tw = (CW - gap * 3) / 4;
   const tiles = [
     ["下り", S.down != null ? fmtMbps(S.down) : "-", "Mbps"],
     ["上り", S.up != null ? fmtMbps(S.up) : "-", "Mbps"],
@@ -886,46 +996,46 @@ function drawResultImage() {
     ["ジッター", S.jitter != null ? S.jitter : "-", "ms"],
   ];
   tiles.forEach((t, i) => {
-    const x = pad + i * (tw + gap);
-    ctx.strokeStyle = C.grid; ctx.lineWidth = 1;
-    rr(x, y, tw, 84, 10); ctx.stroke();
-    ctx.fillStyle = C.sub; ctx.font = F("400 12px");
+    const x = L + i * (tw + gap);
+    ctx.fillStyle = P.tiles[i][0];
+    rr(x, y, tw, 84, 14); ctx.fill();
+    ctx.fillStyle = P.tiles[i][1]; ctx.font = F("700 12px");
     ctx.fillText(t[0], x + 14, y + 26);
-    ctx.fillStyle = C.ink; ctx.font = F("600 28px");
+    ctx.fillStyle = P.ink; ctx.font = F("800 27px");
     const vw = ctx.measureText(String(t[1])).width;
     ctx.fillText(String(t[1]), x + 14, y + 62);
-    ctx.fillStyle = C.muted; ctx.font = F("400 12px");
+    ctx.fillStyle = P.muted; ctx.font = F("400 12px");
     ctx.fillText(t[2], x + 14 + vw + 5, y + 62);
   });
-  y += 84 + 34;
+  y += 92 + 30;
 
   const section = (title) => {
-    ctx.fillStyle = C.ink; ctx.font = F("700 15px");
-    ctx.fillText(title, pad, y + 6); y += 30;
+    ctx.fillStyle = P.ink; ctx.font = F("800 15px");
+    ctx.fillText(title, L, y + 6); y += 34;
   };
 
   // 配信可否
-  section("配信・ビデオ会議の可否目安");
+  section("🎥 配信・ビデオ会議の可否目安");
   document.querySelectorAll("#verdictTable tr").forEach(tr => {
     const title = tr.cells[0].childNodes[0].textContent;
     const b = tr.cells[1].querySelector(".badge");
     const cls = ["ok","warn","ng","na"].find(c => b.classList.contains(c)) || "na";
     const label = b.textContent.trim() || "未計測";
-    ctx.fillStyle = C.ink; ctx.font = F("400 14px");
-    ctx.fillText(ell(title, W - pad * 2 - 140), pad, y + 20);
-    ctx.font = F("600 13px");
-    const bw = ctx.measureText(label).width + 26;
-    ctx.fillStyle = C[cls].bg;
-    rr(W - pad - bw, y + 3, bw, 25, 12.5); ctx.fill();
-    ctx.fillStyle = C[cls].tx; ctx.textAlign = "center";
-    ctx.fillText(label, W - pad - bw / 2, y + 20);
+    ctx.fillStyle = P.ink; ctx.font = F("400 14px");
+    ctx.fillText(ell(title, CW - 140), L, y + 20);
+    ctx.font = F("800 13px");
+    const bw = ctx.measureText(label).width + 28;
+    ctx.fillStyle = P[cls].bg;
+    rr(R - bw, y + 2, bw, 26, 13); ctx.fill();
+    ctx.fillStyle = P[cls].tx; ctx.textAlign = "center";
+    ctx.fillText(label, R - bw / 2, y + 20);
     ctx.textAlign = "left";
     y += 40; if (tr.nextElementSibling) line(y - 8);
   });
-  y += 26;
+  y += 18;
 
   // 回線情報
-  section("回線情報");
+  section("🌏 回線情報");
   const kv = [
     ["IPv4", S.ipv4 || "-"],
     ["IPv6", S.ipv6 || "-"],
@@ -933,31 +1043,31 @@ function drawResultImage() {
     ["接続地域(推定)", S.geo || "-"],
   ];
   kv.forEach(([k, v]) => {
-    ctx.fillStyle = C.sub; ctx.font = F("400 13px");
-    ctx.fillText(k, pad, y + 18);
-    ctx.fillStyle = C.ink; ctx.font = F("400 14px");
-    ctx.fillText(ell(v, W - pad * 2 - 150), pad + 150, y + 18);
+    ctx.fillStyle = P.sub; ctx.font = F("700 12px");
+    ctx.fillText(k, L, y + 18);
+    ctx.fillStyle = P.ink; ctx.font = F("400 14px");
+    ctx.fillText(ell(v, CW - 150), L + 150, y + 18);
     y += 32;
   });
-  y += 26;
+  y += 18;
 
   // 端末
-  section("端末環境");
+  section("💻 端末環境");
   const dv = [
     ["ブラウザ / OS", $("browser").textContent + " / " + $("os").textContent],
     ["画面", $("screen").textContent],
   ];
   dv.forEach(([k, v]) => {
-    ctx.fillStyle = C.sub; ctx.font = F("400 13px");
-    ctx.fillText(k, pad, y + 18);
-    ctx.fillStyle = C.ink; ctx.font = F("400 14px");
-    ctx.fillText(ell(v, W - pad * 2 - 150), pad + 150, y + 18);
+    ctx.fillStyle = P.sub; ctx.font = F("700 12px");
+    ctx.fillText(k, L, y + 18);
+    ctx.fillStyle = P.ink; ctx.font = F("400 14px");
+    ctx.fillText(ell(v, CW - 150), L + 150, y + 18);
     y += 32;
   });
 
   // フッター
-  ctx.fillStyle = C.muted; ctx.font = F("400 11px");
-  ctx.fillText("確認君+α — Cloudflare スピードテストによる計測(結果は目安です)", pad, H - 22);
+  ctx.fillStyle = P.muted; ctx.font = F("400 11px");
+  ctx.fillText("確認君+α — Cloudflare スピードテストによる計測(結果は目安です)", L, M + pad + contentH - 8);
 
   return cv;
 }
@@ -966,7 +1076,8 @@ imgBtn.addEventListener("click", () => {
   const cv = drawResultImage();
   const d = new Date();
   const p = n => String(n).padStart(2, "0");
-  const name = `kakunin_${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}.png`;
+  const venue = $("venue").value.trim().replace(/[\\/:*?"<>|\s]+/g, "_");
+  const name = `kakunin_${venue ? venue + "_" : ""}${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}.png`;
   cv.toBlob(blob => {
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
@@ -985,8 +1096,10 @@ imgBtn.addEventListener("click", () => {
 /* ================= copy report ================= */
 copyBtn.addEventListener("click", async () => {
   const v = x => x == null ? "-" : x;
+  const venue = $("venue").value.trim();
   const lines = [
     "■ 配信会場 回線チェック結果(確認君+α)",
+    ...(venue ? [`施設名: ${venue}`] : []),
     `計測日時: ${v(S.measuredAt)}`,
     "",
     "【回線速度】",
