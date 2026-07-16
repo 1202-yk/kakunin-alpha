@@ -1,0 +1,23 @@
+{
+  "name": "Narabel（ナラベル）｜実寸大3Dオフィスレイアウト",
+  "short_name": "Narabel",
+  "description": "実寸大の3Dオフィスレイアウト作成ツール",
+  "start_url": "./narabel.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1e2126",
+  "theme_color": "#1e2126",
+  "icons": [
+    {
+      "src": "narabel-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "narabel-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
