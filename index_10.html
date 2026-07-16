@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>確認君+α|配信会場の回線チェック - 回線速度テスト・IPアドレス・プロバイダー確認</title>
+<meta name="description" content="配信会場の下見に便利な無料回線チェックツール。回線速度(下り・上り・Ping・ジッター)の計測、IPアドレス・プロバイダーの確認、YouTube Live・Twitch・Zoomでの配信可否判定までワンページで完結。計測結果は施設名入りの画像で保存できます。">
+<meta name="keywords" content="回線速度テスト,スピードテスト,回線チェック,IPアドレス確認,プロバイダー確認,配信,ライブ配信,下見,YouTube Live,Twitch,Zoom,ウェビナー">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#7c5cff">
+<link rel="canonical" href="https://1202-yk.github.io/kakunin-alpha/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📶</text></svg>">
+<!-- OGP -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="確認君+α">
+<meta property="og:title" content="確認君+α|配信会場の回線チェック">
+<meta property="og:description" content="回線速度テスト・IPアドレス・プロバイダー確認・配信可否判定をワンページで。配信会場の下見のお供に。">
+<meta property="og:url" content="https://1202-yk.github.io/kakunin-alpha/">
+<meta property="og:image" content="https://1202-yk.github.io/kakunin-alpha/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="確認君+α|配信会場の回線チェック">
+<meta name="twitter:description" content="回線速度テスト・IPアドレス・プロバイダー確認・配信可否判定をワンページで。">
+<meta name="twitter:image" content="https://1202-yk.github.io/kakunin-alpha/ogp.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "確認君+α",
+  "alternateName": "配信会場 回線チェックツール",
+  "url": "https://1202-yk.github.io/kakunin-alpha/",
+  "description": "配信会場の下見用の無料回線チェックツール。回線速度(下り・上り・Ping)の計測、IPアドレス・プロバイダーの確認、YouTube Live・Twitch・Zoomでの配信可否判定ができます。",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "inLanguage": "ja",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --surface:     #ffffff;
+    --ink-1:       #26304a;
+    --ink-2:       #5a6478;
+    --ink-muted:   #8f97a8;
+    --hairline:    rgba(38,48,74,0.08);
+    --grid:        #eceef5;
+    --accent:      #2a78d6;
+    --accent-2:    #7c5cff;
+    --pink:        #ff5fa2;
+    --good-text:   #0a7d0a;
+    --warn-text:   #8a5c00;
+    --crit-text:   #b52d2d;
+    --good-bg:     rgba(12,163,12,0.12);
+    --warn-bg:     rgba(250,178,25,0.18);
+    --crit-bg:     rgba(208,59,59,0.12);
+    --t-down-bg:   #e7f1ff;  --t-down: #1d6fd1;
+    --t-up-bg:     #e4f8ee;  --t-up:   #0f9d63;
+    --t-ping-bg:   #efeaff;  --t-ping: #6a4fd8;
+    --t-jit-bg:    #ffeaf3;  --t-jit:  #d64d8a;
+    --shadow:      0 8px 28px rgba(74,58,167,0.10);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface:     #1e2436;
+      --ink-1:       #f2f4fa;
+      --ink-2:       #b8c0d4;
+      --ink-muted:   #8f97a8;
+      --hairline:    rgba(255,255,255,0.09);
+      --grid:        #323a52;
+      --accent:      #4f95ec;
+      --accent-2:    #9b85ff;
+      --good-text:   #4ecb4e;
+      --warn-text:   #ffc94d;
+      --crit-text:   #ff8585;
+      --good-bg:     rgba(78,203,78,0.16);
+      --warn-bg:     rgba(255,201,77,0.16);
+      --crit-bg:     rgba(255,133,133,0.14);
+      --t-down-bg:   rgba(79,149,236,0.16);  --t-down: #7db4f5;
+      --t-up-bg:     rgba(35,190,125,0.16);  --t-up:   #52d99e;
+      --t-ping-bg:   rgba(155,133,255,0.16); --t-ping: #b3a2ff;
+      --t-jit-bg:    rgba(255,95,162,0.14);  --t-jit:  #ff9ec6;
+      --shadow:      0 8px 28px rgba(0,0,0,0.35);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: linear-gradient(160deg, #e8f2ff 0%, #fdeef7 55%, #fff7df 100%) fixed;
+    color: var(--ink-1);
+    font-family: "M PLUS Rounded 1c", system-ui, -apple-system, "Segoe UI", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Noto Sans JP", sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: linear-gradient(160deg, #131a2c 0%, #241a36 60%, #2c1f28 100%) fixed; }
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 28px 16px 64px; }
+
+  header.site { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 6px 0 22px; }
+  header.site h1 {
+    font-size: 30px; margin: 0; font-weight: 800; letter-spacing: 0.01em;
+    background: linear-gradient(120deg, var(--accent), var(--accent-2) 55%, var(--pink));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  header.site .sub { color: var(--ink-2); font-size: 13px; font-weight: 700; }
+  .stamp { margin-left: auto; color: var(--ink-muted); font-size: 12px; }
+  .lede { font-size: 13px; color: var(--ink-2); margin: -10px 0 22px; max-width: 660px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow);
+  }
+  .card h2 {
+    font-size: 16px; margin: 0 0 16px; color: var(--ink-1); font-weight: 800;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card h2 .icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 11px; font-size: 17px;
+  }
+  .i-speed   { background: var(--t-down-bg); }
+  .i-verdict { background: var(--t-jit-bg); }
+  .i-net     { background: var(--t-up-bg); }
+  .i-dev     { background: var(--t-ping-bg); }
+
+  /* ---- speed test ---- */
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 640px) { .tiles { grid-template-columns: repeat(2, 1fr); } }
+  .tile {
+    border: none; border-radius: 16px;
+    padding: 14px 16px; min-height: 92px;
+  }
+  .tile.t-down { background: var(--t-down-bg); } .tile.t-down .label { color: var(--t-down); }
+  .tile.t-up   { background: var(--t-up-bg); }   .tile.t-up .label   { color: var(--t-up); }
+  .tile.t-ping { background: var(--t-ping-bg); } .tile.t-ping .label { color: var(--t-ping); }
+  .tile.t-jit  { background: var(--t-jit-bg); }  .tile.t-jit .label  { color: var(--t-jit); }
+  .tile .label { font-size: 12px; font-weight: 700; }
+  .tile .value { font-size: 30px; font-weight: 800; line-height: 1.2; margin-top: 2px; color: var(--ink-1); }
+  .tile .value .unit { font-size: 13px; font-weight: 400; color: var(--ink-muted); margin-left: 3px; }
+  .tile.pending .value { color: var(--ink-muted); }
+
+  .meter {
+    height: 10px; border-radius: 999px; background: var(--grid);
+    overflow: hidden; margin-top: 16px;
+  }
+  .meter > div {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--pink));
+    border-radius: 999px; transition: width .25s linear;
+  }
+  .phase { font-size: 12px; color: var(--ink-2); margin-top: 8px; min-height: 18px; }
+
+  .venue-row { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+  .venue-row label { font-size: 12px; font-weight: 700; color: var(--ink-2); }
+  .venue-row input {
+    font-family: inherit; font-size: 15px;
+    padding: 11px 16px; border-radius: 14px;
+    border: 2px solid var(--grid);
+    background: var(--surface); color: var(--ink-1);
+    outline: none; transition: border-color .15s;
+    max-width: 420px;
+  }
+  .venue-row input:focus { border-color: var(--accent); }
+  .venue-row input::placeholder { color: var(--ink-muted); }
+
+  .btn-row { display: flex; gap: 10px; align-items: center; margin-top: 16px; flex-wrap: wrap; }
+  button.primary {
+    appearance: none; border: none; cursor: pointer;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff;
+    font-size: 15px; font-weight: 800;
+    padding: 13px 32px; border-radius: 999px;
+    font-family: inherit;
+    box-shadow: 0 4px 16px rgba(124,92,255,0.35);
+    transition: transform .12s ease;
+  }
+  button.primary:hover:not(:disabled) { transform: translateY(-2px); }
+  button.primary:disabled { opacity: .55; cursor: default; box-shadow: none; }
+  button.ghost {
+    appearance: none; cursor: pointer;
+    background: var(--surface); color: var(--accent);
+    border: 2px solid var(--accent);
+    font-size: 14px; font-weight: 700; padding: 10px 22px; border-radius: 999px;
+    font-family: inherit;
+    transition: transform .12s ease;
+  }
+  button.ghost:hover:not(:disabled) { transform: translateY(-2px); }
+  button.ghost:disabled { opacity: .4; cursor: default; border-color: var(--ink-muted); color: var(--ink-muted); }
+
+  /* ---- verdict table ---- */
+  table.verdict { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.verdict td { padding: 9px 4px; border-top: 1px solid var(--grid); vertical-align: middle; }
+  table.verdict tr:first-child td { border-top: none; }
+  table.verdict td:last-child { text-align: right; white-space: nowrap; width: 1%; }
+  table.verdict .req { display: block; color: var(--ink-muted); font-size: 12px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 800;
+    padding: 4px 12px; border-radius: 999px; white-space: nowrap;
+  }
+  .badge.ok   { background: var(--good-bg); color: var(--good-text); }
+  .badge.warn { background: var(--warn-bg); color: var(--warn-text); }
+  .badge.ng   { background: var(--crit-bg); color: var(--crit-text); }
+  .badge.na   { background: transparent; color: var(--ink-muted); border: 1px solid var(--hairline); font-weight: 400; }
+  .note { font-size: 12px; color: var(--ink-muted); margin-top: 10px; }
+
+  /* ---- info lists ---- */
+  dl.kv { margin: 0; display: grid; grid-template-columns: 160px 1fr; row-gap: 0; font-size: 14px; }
+  dl.kv dt {
+    color: var(--ink-2); padding: 8px 0; border-top: 1px solid var(--grid);
+  }
+  dl.kv dd {
+    margin: 0; padding: 8px 0; border-top: 1px solid var(--grid);
+    word-break: break-all;
+  }
+  dl.kv dt:first-of-type, dl.kv dd:first-of-type { border-top: none; }
+  dl.kv .loading { color: var(--ink-muted); }
+  @media (max-width: 520px) {
+    dl.kv { grid-template-columns: 1fr; }
+    dl.kv dt { border-top: 1px solid var(--grid); padding-bottom: 0; font-size: 12px; }
+    dl.kv dd { border-top: none; padding-top: 2px; }
+    dl.kv dt:first-of-type { border-top: none; }
+  }
+
+  footer { color: var(--ink-muted); font-size: 12px; margin-top: 28px; }
+  footer a { color: inherit; }
+  footer .disclaimer { margin-top: 8px; font-size: 11px; opacity: .85; }
+  .toast {
+    position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%);
+    background: var(--ink-1); color: var(--page);
+    font-size: 13px; padding: 9px 18px; border-radius: 999px;
+    opacity: 0; pointer-events: none; transition: opacity .25s;
+  }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="site">
+    <h1>確認君+α</h1>
+    <span class="sub">配信会場 回線チェック</span>
+    <span class="stamp" id="stamp"></span>
+  </header>
+
+  <p class="lede">「この会場の回線、配信に耐えられる?」をその場で確認できる無料ツールです。回線速度(下り・上り・Ping)の計測から、IPアドレス・プロバイダーの確認、YouTube Live / Twitch / Zoom の配信可否判定まで、このページひとつで完結します。</p>
+
+  <!-- 1. speed test -->
+  <section class="card" id="speedCard">
+    <h2><span class="icon i-speed">⚡</span>回線速度テスト</h2>
+    <div class="tiles">
+      <div class="tile t-down pending" id="tileDown">
+        <div class="label">下り(ダウンロード)</div>
+        <div class="value"><span id="vDown">–</span><span class="unit">Mbps</span></div>
+      </div>
+      <div class="tile t-up pending" id="tileUp">
+        <div class="label">上り(アップロード)</div>
+        <div class="value"><span id="vUp">–</span><span class="unit">Mbps</span></div>
+      </div>
+      <div class="tile t-ping pending" id="tilePing">
+        <div class="label">Ping(遅延)</div>
+        <div class="value"><span id="vPing">–</span><span class="unit">ms</span></div>
+      </div>
+      <div class="tile t-jit pending" id="tileJitter">
+        <div class="label">ジッター(揺らぎ)</div>
+        <div class="value"><span id="vJitter">–</span><span class="unit">ms</span></div>
+      </div>
+    </div>
+    <div class="meter"><div id="meterFill"></div></div>
+    <div class="phase" id="phase">「計測開始」を押すと約30秒で計測します(6ストリーム並列計測。高速回線ではデータ通信量が数GBになることがあります)</div>
+    <div class="venue-row">
+      <label for="venue">📍 施設名(保存画像・コピー結果に記載されます)</label>
+      <input id="venue" type="text" placeholder="例:○○市民ホール 大ホール" maxlength="50" autocomplete="off">
+    </div>
+    <div class="btn-row">
+      <button class="primary" id="startBtn">計測開始</button>
+      <button class="ghost" id="copyBtn" disabled>結果をコピー</button>
+      <button class="ghost" id="imgBtn" disabled>画像で保存</button>
+    </div>
+  </section>
+
+  <!-- 2. verdict -->
+  <section class="card">
+    <h2><span class="icon i-verdict">🎥</span>配信・ビデオ会議の可否目安</h2>
+    <table class="verdict" id="verdictTable">
+      <tr data-need="40" data-warn="25">
+        <td>4K 60fps 配信<span class="req">上り 40 Mbps 以上推奨</span></td>
+        <td><span class="badge na">未計測</span></td>
+      </tr>
+      <tr data-need="12" data-warn="6">
+        <td>1080p 60fps 配信<span class="req">上り 12 Mbps 以上推奨</span></td>
+        <td><span class="badge na">未計測</span></td>
+      </tr>
+      <tr data-need="9" data-warn="4.5">
+        <td>1080p 30fps 配信<span class="req">上り 9 Mbps 以上推奨</span></td>
+        <td><span class="badge na">未計測</span></td>
+      </tr>
+      <tr data-need="6" data-warn="3">
+        <td>720p 配信<span class="req">上り 6 Mbps 以上推奨</span></td>
+        <td><span class="badge na">未計測</span></td>
+      </tr>
+      <tr data-need="8" data-warn="3.8" data-downneed="8" data-downwarn="3.8" data-maxping="150">
+        <td>Zoomミーティング(HDビデオ)<span class="req">上り・下り 4 Mbps / Ping 150ms 以下推奨</span></td>
+        <td><span class="badge na">未計測</span></td>
+      </tr>
+      <tr data-need="8" data-warn="3.8" data-maxping="150">
+        <td>Zoomウェビナー(ホスト / パネリスト)<span class="req">上り 4 Mbps / Ping 150ms 以下推奨</span></td>
+        <td><span class="badge na">未計測</span></td>
+      </tr>
+      <tr id="stabilityRow">
+        <td>回線の安定性(Ping / ジッター)<span class="req">Ping 50ms・ジッター 15ms 以下が理想</span></td>
+        <td><span class="badge na">未計測</span></td>
+      </tr>
+    </table>
+    <div class="note">※ YouTube Live / Twitch / Zoom の公式推奨値に、実運用上の余裕(約2倍)を持たせた目安です。判定が「OK」でも、本番と同じ時間帯・同じ機材での再確認をおすすめします。</div>
+  </section>
+
+  <!-- 3. network / provider -->
+  <section class="card">
+    <h2><span class="icon i-net">🌏</span>IPアドレス・プロバイダー情報</h2>
+    <dl class="kv">
+      <dt>IPv4 アドレス</dt><dd id="ipv4" class="loading">取得中…</dd>
+      <dt>IPv6 アドレス</dt><dd id="ipv6" class="loading">取得中…</dd>
+      <dt>プロバイダー / 組織</dt><dd id="isp" class="loading">取得中…</dd>
+      <dt>AS 番号</dt><dd id="asn" class="loading">取得中…</dd>
+      <dt>おおよその接続地域</dt><dd id="geo" class="loading">取得中…</dd>
+      <dt>計測サーバー</dt><dd id="colo" class="loading">取得中…</dd>
+    </dl>
+    <div class="note">※ 地域はIPアドレスからの推定で、実際の所在地とはずれることがあります。</div>
+  </section>
+
+  <!-- 4. device -->
+  <section class="card">
+    <h2><span class="icon i-dev">💻</span>端末・ブラウザ環境</h2>
+    <dl class="kv">
+      <dt>ブラウザ</dt><dd id="browser">–</dd>
+      <dt>OS</dt><dd id="os">–</dd>
+      <dt>画面解像度</dt><dd id="screen">–</dd>
+      <dt>言語 / タイムゾーン</dt><dd id="lang">–</dd>
+      <dt>ネットワーク種別(参考)</dt><dd id="conn">–</dd>
+      <dt>User-Agent</dt><dd id="ua" style="font-size:12px;color:var(--ink-2)">–</dd>
+    </dl>
+  </section>
+
+  <footer>
+    確認君+α — 速度計測には Cloudflare のスピードテスト用サーバー(speed.cloudflare.com)を利用し、6ストリーム並列で計測しています(接続できない場合は fast.com の計測サーバーに自動で切り替わります)。ブラウザ計測の特性上、マルチギガ回線では実際より低めに出ることがあります。計測結果はこのブラウザ内でのみ処理され、どこにも保存されません。
+    <div class="disclaimer">※「確認君+α」は、「<a href="https://env.b4iine.net/" target="_blank" rel="noopener">確認君+(Plus)</a>」および「<a href="http://www.ugtop.com/" target="_blank" rel="noopener">確認くん</a>」とは一切関係ありません。</div>
+  </footer>
+</div>
+
+<div class="toast" id="toast">結果をコピーしました</div>
+
+<script>
+"use strict";
+/* ================= state ================= */
+const S = {
+  down: null, up: null, ping: null, jitter: null,
+  ipv4: null, ipv6: null, isp: null, asn: null, geo: null, colo: null,
+  measuredAt: null, running: false,
+};
+const $ = id => document.getElementById(id);
+const fmtMbps = v => v >= 100 ? Math.round(v).toString() : v >= 10 ? v.toFixed(1) : v.toFixed(2);
+
+/* ================= timestamp ================= */
+function stamp() {
+  const d = new Date();
+  const p = n => String(n).padStart(2, "0");
+  return `${d.getFullYear()}/${p(d.getMonth()+1)}/${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+$("stamp").textContent = stamp();
+
+/* ================= device info ================= */
+(function deviceInfo() {
+  const ua = navigator.userAgent;
+  $("ua").textContent = ua;
+
+  let browser = "不明";
+  const m = (re) => { const r = ua.match(re); return r ? r[1] : null; };
+  if (/Edg\//.test(ua)) browser = "Microsoft Edge " + m(/Edg\/([\d.]+)/);
+  else if (/OPR\//.test(ua)) browser = "Opera " + m(/OPR\/([\d.]+)/);
+  else if (/SamsungBrowser\//.test(ua)) browser = "Samsung Internet " + m(/SamsungBrowser\/([\d.]+)/);
+  else if (/Firefox\//.test(ua)) browser = "Firefox " + m(/Firefox\/([\d.]+)/);
+  else if (/Chrome\//.test(ua)) browser = "Chrome " + m(/Chrome\/([\d.]+)/);
+  else if (/Safari\//.test(ua) && /Version\//.test(ua)) browser = "Safari " + m(/Version\/([\d.]+)/);
+  $("browser").textContent = browser;
+
+  let os = "不明";
+  if (/Windows NT 10/.test(ua)) os = "Windows 10 / 11";
+  else if (/Windows NT/.test(ua)) os = "Windows";
+  else if (/iPhone|iPad|iPod/.test(ua)) os = "iOS / iPadOS";
+  else if (/Mac OS X/.test(ua)) os = "macOS";
+  else if (/Android ([\d.]+)/.test(ua)) os = "Android " + m(/Android ([\d.]+)/);
+  else if (/Linux/.test(ua)) os = "Linux";
+  if (navigator.userAgentData && navigator.userAgentData.platform) {
+    os = navigator.userAgentData.platform + (os !== "不明" ? `(${os})` : "");
+  }
+  $("os").textContent = os;
+
+  const dpr = window.devicePixelRatio || 1;
+  $("screen").textContent =
+    `${screen.width} × ${screen.height}(表示倍率 ${dpr}x / ウィンドウ ${innerWidth} × ${innerHeight})`;
+  $("lang").textContent =
+    `${navigator.language} / ${Intl.DateTimeFormat().resolvedOptions().timeZone}`;
+
+  const c = navigator.connection;
+  $("conn").textContent = c
+    ? `${c.effectiveType || "-"}${c.downlink ? ` / 推定 ${c.downlink} Mbps` : ""}${c.rtt ? ` / RTT ${c.rtt} ms` : ""}`
+    : "この端末では取得できません";
+})();
+
+/* ================= IP / provider ================= */
+async function fetchText(url, ms = 6000) {
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), ms);
+  try {
+    const r = await fetch(url, { signal: ctl.signal, cache: "no-store" });
+    if (!r.ok) throw new Error(r.status);
+    return (await r.text()).trim();
+  } finally { clearTimeout(t); }
+}
+async function fetchJSON(url, ms = 8000) {
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), ms);
+  try {
+    const r = await fetch(url, { signal: ctl.signal, cache: "no-store" });
+    if (!r.ok) throw new Error(r.status);
+    return await r.json();
+  } finally { clearTimeout(t); }
+}
+function setKV(id, text, ok = true) {
+  const el = $(id);
+  el.textContent = text;
+  el.classList.remove("loading");
+  if (!ok) el.style.color = "var(--ink-muted)";
+}
+
+const join = (...xs) => xs.filter(Boolean).join(" / ") || null;
+
+// 取得元を複数用意し、先に成功したものから空欄を埋めていく
+const GEO_SOURCES = [
+  {
+    name: "Cloudflare", url: "https://speed.cloudflare.com/meta",
+    parse: j => ({
+      isp: j.asOrganization || null,
+      asn: j.asn ? "AS" + j.asn : null,
+      geo: join(j.city, j.region, j.country),
+      colo: j.colo ? `Cloudflare ${j.colo}(最寄り拠点)` : null,
+    }),
+  },
+  {
+    name: "GeoJS", url: "https://get.geojs.io/v1/ip/geo.json",
+    parse: j => ({
+      isp: j.organization_name || null,
+      asn: j.asn ? "AS" + j.asn : null,
+      geo: join(j.city, j.region, j.country),
+    }),
+  },
+  {
+    name: "ipwho.is", url: "https://ipwho.is/",
+    parse: j => j.success === false ? null : ({
+      isp: (j.connection && (j.connection.isp || j.connection.org)) || null,
+      asn: (j.connection && j.connection.asn) ? "AS" + j.connection.asn : null,
+      geo: join(j.city, j.region, j.country),
+    }),
+  },
+  {
+    name: "ipapi.co", url: "https://ipapi.co/json/",
+    parse: j => j.error ? null : ({
+      isp: j.org || null,
+      asn: j.asn || null,
+      geo: join(j.city, j.region, j.country_name),
+    }),
+  },
+];
+
+(async function ipInfo() {
+  // IPv4 / IPv6 (individually)
+  fetchText("https://ipv4.icanhazip.com/").then(ip => { S.ipv4 = ip; setKV("ipv4", ip); })
+    .catch(() => setKV("ipv4", "取得できませんでした(IPv4非対応の可能性)", false));
+  fetchText("https://ipv6.icanhazip.com/").then(ip => { S.ipv6 = ip; setKV("ipv6", ip); })
+    .catch(() => setKV("ipv6", "なし(IPv4のみ、または取得不可)", false));
+
+  // provider / region: 各ソースを順に試し、取れたフィールドから埋める
+  const got = { isp: null, asn: null, geo: null, colo: null };
+  const failures = [];
+  for (const src of GEO_SOURCES) {
+    if (got.isp && got.geo && got.asn) break;
+    try {
+      const j = await fetchJSON(src.url);
+      const r = src.parse(j);
+      if (!r) throw new Error("レート制限などで拒否されました");
+      for (const k of ["isp","asn","geo","colo"]) if (!got[k] && r[k]) got[k] = r[k];
+      console.log("[確認君+α] " + src.name + ": OK", r);
+    } catch (e) {
+      failures.push(src.name);
+      console.warn("[確認君+α] " + src.name + ": 失敗", e && e.message);
+    }
+  }
+  S.isp = got.isp; S.asn = got.asn; S.geo = got.geo; S.colo = got.colo;
+
+  const fail = (id) => setKV(id, "取得できませんでした", false);
+  got.isp  ? setKV("isp", got.isp)   : fail("isp");
+  got.asn  ? setKV("asn", got.asn)   : fail("asn");
+  got.geo  ? setKV("geo", got.geo)   : fail("geo");
+  setKV("colo", got.colo || "Cloudflare(speed.cloudflare.com)");
+
+  if (!got.isp && !got.geo) {
+    const el = document.createElement("div");
+    el.className = "note";
+    el.style.color = "var(--crit-text)";
+    el.textContent = "⚠ 情報取得API(" + failures.join("、") +
+      ")への接続がすべて失敗しました。広告ブロッカー・セキュリティソフト・ネットワークのフィルタリングでブロックされている可能性があります。拡張機能を一時的にオフにするか、別の回線でお試しください。";
+    $("geo").closest(".card").appendChild(el);
+  }
+})();
+
+/* ================= speed test ================= */
+const CF = window.CF_BASE || "https://speed.cloudflare.com";
+const meter = $("meterFill"), phase = $("phase");
+let progressBase = 0, progressSpan = 0;
+function setProgress(frac) { meter.style.width = Math.min(100, progressBase + progressSpan * frac) + "%"; }
+
+async function measurePing(count = 8) {
+  const times = [];
+  for (let i = 0; i <= count; i++) {
+    const t0 = performance.now();
+    try {
+      await fetch(`${CF}/__down?bytes=0&r=${Math.random()}`, { cache: "no-store" });
+      const dt = performance.now() - t0;
+      if (i > 0) times.push(dt);          // discard warm-up
+    } catch (e) { /* skip failed sample */ }
+    setProgress(i / count);
+  }
+  if (!times.length) throw new Error("ping failed");
+  const ping = Math.min(...times);
+  let jit = 0;
+  for (let i = 1; i < times.length; i++) jit += Math.abs(times[i] - times[i-1]);
+  const jitter = times.length > 1 ? jit / (times.length - 1) : 0;
+  return { ping, jitter };
+}
+
+// サンプル列から速度を算出(冒頭のTCPスロースタート区間を除外)
+function windowedSpeed(samples) {
+  const last = samples[samples.length - 1];
+  if (!last || last.t < 500) return null;
+  const skip = Math.min(1500, last.t * 0.3);   // 先頭1.5秒(短い場合は30%)を捨てる
+  let ref = samples[0];
+  for (const s of samples) { if (s.t >= skip) { ref = s; break; } }
+  const dt = last.t - ref.t, db = last.b - ref.b;
+  if (dt < 300) return null;
+  return (db * 8) / (dt / 1000) / 1e6;
+}
+
+const STREAMS = 6;   // Speedtest.net と同様のマルチストリーム計測
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+// 汎用マルチストリーム下り計測(URL生成関数を差し替えて計測サーバーを変えられる)
+async function measureDownloadFrom(urlFactory, budgetMs = 12000) {
+  const t0 = performance.now();
+  let total = 0, stop = false, lastErr = null;
+  const samples = [{ t: 0, b: 0 }];
+  const ctl = new AbortController();
+
+  const ticker = setInterval(() => {
+    samples.push({ t: performance.now() - t0, b: total });
+    const sp = windowedSpeed(samples);
+    if (sp) $("vDown").textContent = fmtMbps(sp);
+    setProgress((performance.now() - t0) / budgetMs);
+  }, 200);
+
+  async function worker(idx) {
+    await sleep(idx * 200);              // 同時バーストを避けて時間差で開始
+    let fails = 0;
+    let small = true;                    // まず小さめで確実に開通し、成功したら大きく
+    while (!stop && fails < 5) {
+      try {
+        const r = await fetch(urlFactory(small), { cache: "no-store", signal: ctl.signal });
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        const reader = r.body.getReader();
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          total += value.length;
+          if (stop) { try { reader.cancel(); } catch (e) {} break; }
+        }
+        fails = 0; small = false;
+      } catch (e) {
+        if (stop) break;
+        lastErr = e.message || String(e);
+        console.warn("[確認君+α] 下り計測エラー:", lastErr);
+        fails++; small = true;
+        await sleep(Math.min(300 * 2 ** fails, 2000));   // 指数バックオフで再試行
+      }
+    }
+  }
+  const workers = Array.from({ length: STREAMS }, (_, i) => worker(i));
+  const tEnd = t0 + budgetMs;
+  while (performance.now() < tEnd) {
+    await sleep(250);
+    // 8秒たっても1バイトも受信できなければ早期中断
+    if (performance.now() - t0 > 8000 && total === 0) break;
+  }
+  stop = true;
+  samples.push({ t: performance.now() - t0, b: total });
+  ctl.abort();
+  await Promise.allSettled(workers);
+  clearInterval(ticker);
+
+  const sp = windowedSpeed(samples);
+  if (!total || !sp) throw new Error(lastErr || "データを受信できませんでした");
+  return sp;
+}
+
+// 計測サーバー①: Cloudflare
+function measureDownload(budgetMs = 12000) {
+  return measureDownloadFrom(
+    small => `${CF}/__down?bytes=${small ? 10e6 : 50e6}&r=${Math.random()}`,
+    budgetMs
+  );
+}
+
+// 計測サーバー②: fast.com(Netflix)— Cloudflareへの経路が不調な回線向け
+async function measureDownloadFast(budgetMs = 10000) {
+  const api = await fetchJSON(
+    "https://api.fast.com/netflix/speedtest/v2?https=true&token=YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm&urlCount=5"
+  );
+  const urls = (api.targets || []).map(t => t.url);
+  if (!urls.length) throw new Error("fast.com の計測URLを取得できませんでした");
+  let i = 0;
+  return measureDownloadFrom(() => urls[i++ % urls.length], budgetMs);
+}
+
+// 互換モード: 1ストリーム逐次(並列計測がブロックされる環境向け)
+async function measureDownloadSimple(budgetMs = 8000) {
+  const sizes = [1e6, 5e6, 10e6, 25e6, 50e6];
+  let bytes = 0, elapsed = 0, i = 0;
+  while (elapsed < budgetMs && i < sizes.length) {
+    const size = sizes[i++];
+    const t0 = performance.now();
+    const r = await fetch(`${CF}/__down?bytes=${size}&r=${Math.random()}`, { cache: "no-store" });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const reader = r.body.getReader();
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      bytes += value.length;
+      const cur = elapsed + (performance.now() - t0);
+      if (cur > 300) {
+        $("vDown").textContent = fmtMbps((bytes * 8) / (cur / 1000) / 1e6);
+        setProgress(Math.min(1, cur / budgetMs));
+      }
+      if (cur > budgetMs) { try { reader.cancel(); } catch (e) {} break; }
+    }
+    elapsed += performance.now() - t0;
+  }
+  if (!bytes) throw new Error("データを受信できませんでした");
+  return (bytes * 8) / (elapsed / 1000) / 1e6;
+}
+
+function randomBlob(size) {
+  // Random-ish payload built from crypto chunks (avoids compression skew)
+  const chunk = new Uint8Array(65536);
+  crypto.getRandomValues(chunk);
+  const parts = [];
+  for (let done = 0; done < size; done += chunk.length) parts.push(chunk);
+  return new Blob(parts);   // Content-Type を付けず CORS プリフライトを回避
+}
+
+async function measureUpload(budgetMs = 12000) {
+  const t0 = performance.now();
+  const blob = randomBlob(25e6);        // 25MB を全ストリームで使い回す
+  let done = 0, stop = false;
+  const active = new Map();             // 送信中 xhr -> 送信済みバイト数
+  const xhrs = [];
+  const totalNow = () => { let a = done; active.forEach(v => a += v); return a; };
+  const samples = [{ t: 0, b: 0 }];
+
+  const ticker = setInterval(() => {
+    samples.push({ t: performance.now() - t0, b: totalNow() });
+    const sp = windowedSpeed(samples);
+    if (sp) $("vUp").textContent = fmtMbps(sp);
+    setProgress((performance.now() - t0) / budgetMs);
+  }, 200);
+
+  let lastErr = null;
+  function worker(idx) {
+    return new Promise(resolve => {
+      let errors = 0;
+      const next = () => {
+        if (stop || errors >= 5) return resolve();
+        const xhr = new XMLHttpRequest();
+        xhrs.push(xhr);
+        active.set(xhr, 0);
+        xhr.open("POST", `${CF}/__up?r=${Math.random()}`);
+        xhr.upload.onprogress = ev => { if (!stop) active.set(xhr, ev.loaded); };
+        const backoff = () => Math.min(300 * 2 ** errors, 2000);
+        xhr.onload = () => {
+          if (xhr.status >= 400) { lastErr = "HTTP " + xhr.status; active.delete(xhr); errors++; if (stop) return resolve(); setTimeout(next, backoff()); return; }
+          active.delete(xhr); done += blob.size; errors = 0; next();
+        };
+        xhr.onerror = () => { lastErr = lastErr || "ネットワークエラー"; active.delete(xhr); errors++; if (stop) return resolve(); setTimeout(next, backoff()); };
+        xhr.ontimeout = xhr.onerror;
+        xhr.onabort = () => resolve();
+        xhr.timeout = budgetMs + 15000;
+        xhr.send(blob);
+      };
+      setTimeout(next, idx * 200);       // 同時バーストを避けて時間差で開始
+    });
+  }
+  const workers = Array.from({ length: STREAMS }, (_, i) => worker(i));
+  const tEnd = t0 + budgetMs;
+  while (performance.now() < tEnd) {
+    await sleep(250);
+    // 8秒たっても1バイトも送信できなければ早期中断
+    if (performance.now() - t0 > 8000 && totalNow() === 0) break;
+  }
+  stop = true;
+  samples.push({ t: performance.now() - t0, b: totalNow() });   // 打ち切り前の実績を確定
+  xhrs.forEach(x => { try { x.abort(); } catch (e) {} });
+  await Promise.allSettled(workers);
+  clearInterval(ticker);
+
+  const sp = windowedSpeed(samples);
+  if (!totalNow() || !sp) throw new Error(lastErr || "データを送信できませんでした");
+  return sp;
+}
+
+// 互換モード: 1ストリーム逐次アップロード
+function uploadOnceSimple(blob, onProgress) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", `${CF}/__up?r=${Math.random()}`);
+    const t0 = performance.now();
+    xhr.upload.onprogress = ev => onProgress && onProgress(ev.loaded, performance.now() - t0);
+    xhr.onload = () => xhr.status >= 400
+      ? reject(new Error("HTTP " + xhr.status))
+      : resolve({ bytes: blob.size, ms: performance.now() - t0 });
+    xhr.onerror = () => reject(new Error("ネットワークエラー"));
+    xhr.ontimeout = () => reject(new Error("タイムアウト"));
+    xhr.timeout = 30000;
+    xhr.send(blob);
+  });
+}
+async function measureUploadSimple(budgetMs = 8000) {
+  const sizes = [1e6, 5e6, 10e6, 25e6];
+  let bytes = 0, elapsed = 0, i = 0;
+  while (elapsed < budgetMs && i < sizes.length) {
+    const size = sizes[i++];
+    const res = await uploadOnceSimple(randomBlob(size), (loaded, ms) => {
+      const cur = elapsed + ms;
+      if (cur > 300) {
+        $("vUp").textContent = fmtMbps(((bytes + loaded) * 8) / (cur / 1000) / 1e6);
+        setProgress(Math.min(1, cur / budgetMs));
+      }
+    });
+    bytes += res.bytes; elapsed += res.ms;
+  }
+  if (!bytes) throw new Error("データを送信できませんでした");
+  return (bytes * 8) / (elapsed / 1000) / 1e6;
+}
+
+/* ================= verdict ================= */
+function badge(cls, icon, label) {
+  return `<span class="badge ${cls}">${icon} ${label}</span>`;
+}
+function renderVerdict() {
+  const level = (v, need, warn) => v >= need ? 2 : v >= warn ? 1 : 0;   // 2=OK 1=△ 0=✕
+  document.querySelectorAll("#verdictTable tr[data-need]").forEach(tr => {
+    const cell = tr.lastElementChild;
+    if (S.up == null) { cell.innerHTML = badge("na", "", "未計測"); return; }
+    // 上り速度による基本判定
+    let lv = level(S.up, parseFloat(tr.dataset.need), parseFloat(tr.dataset.warn));
+    // 下り条件(Zoomなど双方向のもの)
+    if (tr.dataset.downneed && S.down != null) {
+      lv = Math.min(lv, level(S.down, parseFloat(tr.dataset.downneed), parseFloat(tr.dataset.downwarn)));
+    }
+    // Ping条件(ビデオ会議は遅延に敏感)
+    if (tr.dataset.maxping && S.ping != null) {
+      const mp = parseFloat(tr.dataset.maxping);
+      if (S.ping > mp * 2) lv = 0;
+      else if (S.ping > mp) lv = Math.min(lv, 1);
+    }
+    if (lv === 2)      cell.innerHTML = badge("ok",  "✓", "OK");
+    else if (lv === 1) cell.innerHTML = badge("warn", "△", "ぎりぎり");
+    else               cell.innerHTML = badge("ng",  "✕", "不足");
+  });
+  const st = $("stabilityRow").lastElementChild;
+  if (S.ping == null) { st.innerHTML = badge("na", "", "未計測"); return; }
+  if (S.ping <= 50 && S.jitter <= 15)       st.innerHTML = badge("ok",  "✓", "良好");
+  else if (S.ping <= 100 && S.jitter <= 30) st.innerHTML = badge("warn", "△", "注意");
+  else                                      st.innerHTML = badge("ng",  "✕", "不安定");
+}
+
+/* ================= run ================= */
+const startBtn = $("startBtn"), copyBtn = $("copyBtn"), imgBtn = $("imgBtn");
+startBtn.addEventListener("click", async () => {
+  if (S.running) return;
+  S.running = true;
+  startBtn.disabled = true; copyBtn.disabled = true; imgBtn.disabled = true;
+  startBtn.textContent = "計測中…";
+  ["vDown","vUp","vPing","vJitter"].forEach(id => $(id).textContent = "–");
+  ["tileDown","tileUp","tilePing","tileJitter"].forEach(id => $(id).classList.add("pending"));
+  S.down = S.up = S.ping = S.jitter = null;
+  renderVerdict();
+
+  const failures = [];
+
+  // ① Ping
+  try {
+    phase.textContent = "① Ping(遅延)を計測中…";
+    progressBase = 0; progressSpan = 15;
+    const { ping, jitter } = await measurePing();
+    S.ping = Math.round(ping); S.jitter = Math.round(jitter * 10) / 10;
+    $("vPing").textContent = S.ping;
+    $("vJitter").textContent = S.jitter;
+    $("tilePing").classList.remove("pending");
+    $("tileJitter").classList.remove("pending");
+  } catch (e) {
+    failures.push("Ping: " + (e.message || e));
+    console.warn("[確認君+α] Ping計測失敗:", e);
+  }
+
+  // 失敗したら次の手段へ順に切り替える
+  async function runLadder(steps) {
+    let lastE = null;
+    for (const s of steps) {
+      if (s.wait) await sleep(s.wait);
+      phase.textContent = s.label;
+      try { return await s.fn(); }
+      catch (e) { lastE = e; console.warn("[確認君+α] 失敗:", s.label, "→", e.message || e); }
+    }
+    throw lastE;
+  }
+
+  // ② 下り: Cloudflare並列 → リトライ → fast.com並列 → 互換モード
+  try {
+    progressBase = 15; progressSpan = 45;
+    S.down = await runLadder([
+      { label: "② 下り(ダウンロード)速度を計測中…(6ストリーム並列)", fn: () => measureDownload() },
+      { label: "② 下り速度を再計測中…(リトライ)", wait: 1200, fn: () => measureDownload(8000) },
+      { label: "② 下り速度を別の計測サーバー(fast.com)で計測中…", wait: 500, fn: () => measureDownloadFast() },
+      { label: "② 下り速度を互換モード(1ストリーム)で再計測中…", wait: 500, fn: () => measureDownloadSimple() },
+    ]);
+    $("vDown").textContent = fmtMbps(S.down);
+    $("tileDown").classList.remove("pending");
+  } catch (e) {
+    failures.push("下り: " + (e.message || e));
+    console.warn("[確認君+α] 下り計測失敗:", e);
+  }
+
+  // ③ 上り: Cloudflare並列 → リトライ → 互換モード
+  try {
+    progressBase = 60; progressSpan = 40;
+    S.up = await runLadder([
+      { label: "③ 上り(アップロード)速度を計測中…(6ストリーム並列)", fn: () => measureUpload() },
+      { label: "③ 上り速度を再計測中…(リトライ)", wait: 1200, fn: () => measureUpload(8000) },
+      { label: "③ 上り速度を互換モード(1ストリーム)で再計測中…", wait: 800, fn: () => measureUploadSimple() },
+    ]);
+    $("vUp").textContent = fmtMbps(S.up);
+    $("tileUp").classList.remove("pending");
+  } catch (e) {
+    failures.push("上り: " + (e.message || e));
+    console.warn("[確認君+α] 上り計測失敗:", e);
+  }
+
+  setProgress(1);
+  renderVerdict();
+  const anyResult = S.ping != null || S.down != null || S.up != null;
+  if (anyResult) {
+    S.measuredAt = stamp();
+    $("stamp").textContent = S.measuredAt + " 計測";
+    copyBtn.disabled = false;
+    imgBtn.disabled = false;
+  }
+  if (failures.length === 0) {
+    phase.textContent = "計測完了。下の「配信・ビデオ会議の可否目安」を確認してください。";
+  } else {
+    phase.innerHTML = "";
+    const msg = document.createElement("span");
+    msg.style.color = "var(--crit-text)";
+    msg.textContent = (anyResult ? "一部の計測に失敗しました" : "計測に失敗しました")
+      + "(" + failures.join(" / ") + ")。広告ブロッカー・VPN・セキュリティソフトの影響が考えられます。"
+      + "詳細はブラウザの開発者ツール(F12)のConsoleに記録されています。";
+    phase.appendChild(msg);
+  }
+  S.running = false;
+  startBtn.disabled = false;
+  startBtn.textContent = "もう一度計測";
+});
+
+/* ================= save as image ================= */
+function drawResultImage() {
+  // サイトと同じポップテーマ(ライト配色)で描画
+  const P = {
+    ink: "#26304a", sub: "#5a6478", muted: "#8f97a8", grid: "#eceef5", card: "#ffffff",
+    g1: "#2a78d6", g2: "#7c5cff", g3: "#ff5fa2",
+    bg1: "#e8f2ff", bg2: "#fdeef7", bg3: "#fff7df",
+    tiles: [["#e7f1ff", "#1d6fd1"], ["#e4f8ee", "#0f9d63"], ["#efeaff", "#6a4fd8"], ["#ffeaf3", "#d64d8a"]],
+    ok:   { bg: "#dff3df", tx: "#0a7d0a" },
+    warn: { bg: "#fdf0d2", tx: "#8a5c00" },
+    ng:   { bg: "#f9e3e3", tx: "#b52d2d" },
+    na:   { bg: "#f0f1f5", tx: "#8f97a8" },
+  };
+  const W = 760, M = 18, pad = 34, scale = 2;
+  const F = w => `${w} "M PLUS Rounded 1c", system-ui, -apple-system, "Segoe UI", "Hiragino Maru Gothic ProN", "Hiragino Sans", "Noto Sans JP", sans-serif`;
+  const venue = $("venue").value.trim();
+  const rowsN = document.querySelectorAll("#verdictTable tr").length;
+
+  // レイアウトは決定的なので高さを先に計算
+  const contentH =
+      46 + (venue ? 42 : 0) + 18      // ヘッダー + 施設名 + 区切り
+    + 92 + 30                          // 速度タイル
+    + 34 + rowsN * 40 + 18            // 配信可否
+    + 34 + 4 * 32 + 18                // 回線情報
+    + 34 + 2 * 32                     // 端末
+    + 36;                             // フッター
+  const H = M * 2 + pad * 2 + contentH;
+
+  const cv = document.createElement("canvas");
+  cv.width = W * scale; cv.height = H * scale;
+  const ctx = cv.getContext("2d");
+  ctx.scale(scale, scale);
+
+  const rr = (x, y, w, h, r) => {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  };
+  const ell = (text, max) => {
+    text = String(text);
+    if (ctx.measureText(text).width <= max) return text;
+    while (text.length && ctx.measureText(text + "…").width > max) text = text.slice(0, -1);
+    return text + "…";
+  };
+
+  // 背景グラデーション
+  const bg = ctx.createLinearGradient(0, 0, W * 0.4, H);
+  bg.addColorStop(0, P.bg1); bg.addColorStop(0.55, P.bg2); bg.addColorStop(1, P.bg3);
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+  // 白カード
+  ctx.save();
+  ctx.shadowColor = "rgba(74,58,167,0.16)"; ctx.shadowBlur = 22; ctx.shadowOffsetY = 6;
+  ctx.fillStyle = P.card;
+  rr(M, M, W - M * 2, H - M * 2, 24); ctx.fill();
+  ctx.restore();
+
+  const L = M + pad, R = W - M - pad, CW = R - L;
+  let y = M + pad;
+  const line = yy => { ctx.strokeStyle = P.grid; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(L, yy); ctx.lineTo(R, yy); ctx.stroke(); };
+
+  // ヘッダー(グラデーションタイトル)
+  ctx.font = F("800 26px");
+  const tg = ctx.createLinearGradient(L, 0, L + 170, 0);
+  tg.addColorStop(0, P.g1); tg.addColorStop(0.55, P.g2); tg.addColorStop(1, P.g3);
+  ctx.fillStyle = tg;
+  ctx.fillText("確認君+α", L, y + 24);
+  ctx.fillStyle = P.sub; ctx.font = F("700 13px");
+  ctx.fillText("配信会場 回線チェック結果", L + 152, y + 24);
+  const ts = S.measuredAt || stamp();
+  ctx.fillStyle = P.muted; ctx.font = F("400 12px"); ctx.textAlign = "right";
+  ctx.fillText(ts + " 計測", R, y + 24);
+  ctx.textAlign = "left";
+  y += 46;
+
+  // 施設名
+  if (venue) {
+    ctx.fillStyle = P.ink; ctx.font = F("800 20px");
+    ctx.fillText(ell("📍 " + venue, CW), L, y + 22);
+    y += 42;
+  }
+  line(y); y += 18;
+
+  // 速度タイル
+  const gap = 12, tw = (CW - gap * 3) / 4;
+  const tiles = [
+    ["下り", S.down != null ? fmtMbps(S.down) : "-", "Mbps"],
+    ["上り", S.up != null ? fmtMbps(S.up) : "-", "Mbps"],
+    ["Ping", S.ping != null ? S.ping : "-", "ms"],
+    ["ジッター", S.jitter != null ? S.jitter : "-", "ms"],
+  ];
+  tiles.forEach((t, i) => {
+    const x = L + i * (tw + gap);
+    ctx.fillStyle = P.tiles[i][0];
+    rr(x, y, tw, 84, 14); ctx.fill();
+    ctx.fillStyle = P.tiles[i][1]; ctx.font = F("700 12px");
+    ctx.fillText(t[0], x + 14, y + 26);
+    ctx.fillStyle = P.ink; ctx.font = F("800 27px");
+    const vw = ctx.measureText(String(t[1])).width;
+    ctx.fillText(String(t[1]), x + 14, y + 62);
+    ctx.fillStyle = P.muted; ctx.font = F("400 12px");
+    ctx.fillText(t[2], x + 14 + vw + 5, y + 62);
+  });
+  y += 92 + 30;
+
+  const section = (title) => {
+    ctx.fillStyle = P.ink; ctx.font = F("800 15px");
+    ctx.fillText(title, L, y + 6); y += 34;
+  };
+
+  // 配信可否
+  section("🎥 配信・ビデオ会議の可否目安");
+  document.querySelectorAll("#verdictTable tr").forEach(tr => {
+    const title = tr.cells[0].childNodes[0].textContent;
+    const b = tr.cells[1].querySelector(".badge");
+    const cls = ["ok","warn","ng","na"].find(c => b.classList.contains(c)) || "na";
+    const label = b.textContent.trim() || "未計測";
+    ctx.fillStyle = P.ink; ctx.font = F("400 14px");
+    ctx.fillText(ell(title, CW - 140), L, y + 20);
+    ctx.font = F("800 13px");
+    const bw = ctx.measureText(label).width + 28;
+    ctx.fillStyle = P[cls].bg;
+    rr(R - bw, y + 2, bw, 26, 13); ctx.fill();
+    ctx.fillStyle = P[cls].tx; ctx.textAlign = "center";
+    ctx.fillText(label, R - bw / 2, y + 20);
+    ctx.textAlign = "left";
+    y += 40; if (tr.nextElementSibling) line(y - 8);
+  });
+  y += 18;
+
+  // 回線情報
+  section("🌏 回線情報");
+  const kv = [
+    ["IPv4", S.ipv4 || "-"],
+    ["IPv6", S.ipv6 || "-"],
+    ["プロバイダー", (S.isp || "-") + (S.asn ? `(${S.asn})` : "")],
+    ["接続地域(推定)", S.geo || "-"],
+  ];
+  kv.forEach(([k, v]) => {
+    ctx.fillStyle = P.sub; ctx.font = F("700 12px");
+    ctx.fillText(k, L, y + 18);
+    ctx.fillStyle = P.ink; ctx.font = F("400 14px");
+    ctx.fillText(ell(v, CW - 150), L + 150, y + 18);
+    y += 32;
+  });
+  y += 18;
+
+  // 端末
+  section("💻 端末環境");
+  const dv = [
+    ["ブラウザ / OS", $("browser").textContent + " / " + $("os").textContent],
+    ["画面", $("screen").textContent],
+  ];
+  dv.forEach(([k, v]) => {
+    ctx.fillStyle = P.sub; ctx.font = F("700 12px");
+    ctx.fillText(k, L, y + 18);
+    ctx.fillStyle = P.ink; ctx.font = F("400 14px");
+    ctx.fillText(ell(v, CW - 150), L + 150, y + 18);
+    y += 32;
+  });
+
+  // フッター
+  ctx.fillStyle = P.muted; ctx.font = F("400 11px");
+  ctx.fillText("確認君+α — Cloudflare スピードテストによる計測(結果は目安です)", L, M + pad + contentH - 8);
+
+  return cv;
+}
+
+imgBtn.addEventListener("click", () => {
+  const cv = drawResultImage();
+  const d = new Date();
+  const p = n => String(n).padStart(2, "0");
+  const venue = $("venue").value.trim().replace(/[\\/:*?"<>|\s]+/g, "_");
+  const name = `kakunin_${venue ? venue + "_" : ""}${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}.png`;
+  cv.toBlob(blob => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    const t = $("toast");
+    t.textContent = "画像を保存しました";
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 2000);
+  }, "image/png");
+});
+
+/* ================= copy report ================= */
+copyBtn.addEventListener("click", async () => {
+  const v = x => x == null ? "-" : x;
+  const venue = $("venue").value.trim();
+  const lines = [
+    "■ 配信会場 回線チェック結果(確認君+α)",
+    ...(venue ? [`施設名: ${venue}`] : []),
+    `計測日時: ${v(S.measuredAt)}`,
+    "",
+    "【回線速度】",
+    `  下り: ${S.down != null ? fmtMbps(S.down) : "-"} Mbps`,
+    `  上り: ${S.up != null ? fmtMbps(S.up) : "-"} Mbps`,
+    `  Ping: ${v(S.ping)} ms / ジッター: ${v(S.jitter)} ms`,
+    "",
+    "【回線情報】",
+    `  IPv4: ${v(S.ipv4)}`,
+    `  IPv6: ${v(S.ipv6)}`,
+    `  プロバイダー: ${v(S.isp)}(${v(S.asn)})`,
+    `  接続地域(推定): ${v(S.geo)}`,
+    "",
+    "【端末環境】",
+    `  ${$("browser").textContent} / ${$("os").textContent}`,
+    `  画面: ${$("screen").textContent}`,
+  ];
+  try {
+    await navigator.clipboard.writeText(lines.join("\n"));
+    const t = $("toast");
+    t.textContent = "結果をコピーしました";
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 2000);
+  } catch (e) {
+    alert(lines.join("\n"));
+  }
+});
+</script>
+</body>
+</html>
